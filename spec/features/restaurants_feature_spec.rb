@@ -42,44 +42,54 @@ feature 'restaurants' do
         expect(page).to have_content 'Name is too short'
       end
     end
-  end
 
-  context 'viewing restaurants' do
-
-    let!(:kfc) { Restaurant.create(name: 'KFC') }
-
-    scenario 'lets a user view a restaurant' do
-      visit '/restaurants'
-      click_link 'KFC'
-      expect(page).to have_content 'KFC'
-      expect(current_path).to eq "/restaurants/#{kfc.id}"
+    xcontext ' a user needs to be logged in to create restaurants' do
+      it 'it raises an error and prompts a user to log in when clicking the link add a restaurant' do
+        visit '/restaurants'
+        click_link 'Add a restaurant'
+        expect{ raise StandardError, 'You must be signed in'}.to raise_error( 'You must be signed in')
+      end
     end
-  end
 
-  context 'editing restaurants' do
 
-    before { Restaurant.create name: 'KFC' }
+    context 'viewing restaurants' do
 
-    scenario 'let a user edit a restaurant' do
-      visit '/restaurants'
-      click_link 'Edit KFC'
-      fill_in 'Name', with: 'Kentucky Fried Chicken'
-      click_button 'Update Restaurant'
-      expect(page).to have_content 'Kentucky Fried Chicken'
-      expect(current_path).to eq '/restaurants'
+      let!(:kfc) { Restaurant.create(name: 'KFC') }
+
+      scenario 'lets a user view a restaurant' do
+        visit '/restaurants'
+        click_link 'KFC'
+        expect(page).to have_content 'KFC'
+        expect(current_path).to eq "/restaurants/#{kfc.id}"
+      end
     end
-  end
 
-  context 'deleting restaurants' do
+    context 'editing restaurants' do
 
-    before { Restaurant.create name: 'KFC' }
+      before { Restaurant.create name: 'KFC' }
 
-    scenario 'removes a restaurant when a user clicks a delete link' do
-      visit '/restaurants'
-      click_link 'Delete KFC'
-      expect(page).not_to have_content 'KFC'
-      expect(page).to have_content 'Restaurant deleted successfully'
+      scenario 'let a user edit a restaurant' do
+        visit '/restaurants'
+        click_link 'Edit KFC'
+        fill_in 'Name', with: 'Kentucky Fried Chicken'
+        click_button 'Update Restaurant'
+        expect(page).to have_content 'Kentucky Fried Chicken'
+        expect(current_path).to eq '/restaurants'
+      end
+    end
+
+    context 'deleting restaurants' do
+
+      before { Restaurant.create name: 'KFC' }
+
+      scenario 'removes a restaurant when a user clicks a delete link' do
+        visit '/restaurants'
+        click_link 'Delete KFC'
+        expect(page).not_to have_content 'KFC'
+        expect(page).to have_content 'Restaurant deleted successfully'
+      end
     end
   end
 end
+
 
