@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
+ruby '2.1.5'
 
 gem 'rails', '4.2.4'
 gem 'pg'
@@ -13,8 +13,8 @@ gem 'shoulda'
 gem 'foundation-rails'
 gem 'devise'
 gem 'omniauth-facebook'
-gem "paperclip", "~> 4.3"
-gem 'aws-sdk'
+gem "paperclip"
+gem 'aws-sdk', '< 2.0'
 
 group :development, :test do
   gem 'dotenv-rails'
