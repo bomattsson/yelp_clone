@@ -36,3 +36,7 @@ group :test do
   gem 'capybara'
   gem 'rspec-collection_matchers'
 end
+
+group :production do
+  gem 'rails_12factor'
+end
