@@ -13,15 +13,16 @@ class User < ActiveRecord::Base
       user.uid = auth.uid
       #user.name = auth.info.name   # assuming the user model has a name
       #user.image = auth.info.image # assuming the user model has an image
+      user.save!
     end
   end
 
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
-      end
-    end
-  end
+  # def self.new_with_session(params, session)
+  #   super.tap do |user|
+  #     if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+  #       user.email = data["email"] if user.email.blank?
+  #     end
+  #   end
+  # end
 end
 
