@@ -1,6 +1,18 @@
-<%= form_for @restaurant, html: {multipart: true} do |f| %>
-    <%= f.file_field :image %>
-    <%= f.label :name %>
-    <%= f.text_field :name, :autofocus=>true %>
-    <%= f.submit %>
-<% end %>
+<div class="row"><%= form_for @restaurant, html: {multipart: true} do |f| %>
+      Add image<br>
+      <div class="fileUpload btn btn-primary tiny button round">
+        <span>Upload</span>
+        <input type="file" class="upload" name="restaurant[image]" id="restaurant_image">
+        <%#= f.file_field :image%>
+      </div>
+
+      <%#= f.file_field :image, html: {class:'upload'}%>
+      <%= f.label :name %>
+      <%= f.text_field :name, :autofocus => true %>
+      <%#= f.submit %>
+
+
+      <%= f.submit 'Add restaurant', class: 'button round' %>
+
+  <% end %>
+</div>
